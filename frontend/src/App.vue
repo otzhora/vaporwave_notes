@@ -1,19 +1,29 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <notes_list />
+    <v-container> <v-btn @click="new_note"> Add new note </v-btn> </v-container>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapActions } from "vuex";
+import notes_list from "./components/notes_list";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    notes_list,
+  },
+  methods: {
+    ...mapActions(["load_notes", "add_new_note"]),
+    new_note() {
+      this.add_new_note();
+    },
+  },
+  created: function() {
+    this.load_notes();
+  },
+};
 </script>
 
 <style>
