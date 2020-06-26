@@ -51,6 +51,7 @@ export default {
     ...mapGetters(["get_note"]),
   },
   mounted() {
+    console.log(this.note_id);
     const note = this.get_note(this.note_id);
     this.title = note["title"];
     this.body = note["body"];

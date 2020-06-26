@@ -33,7 +33,7 @@ export default new Vuex.Store({
     DELETE_NOTE(state, note_id) {
       delete state.notes[note_id];
       let index_to_delete = 0;
-      for (let index of state.notes_ids) {
+      for (let index in state.notes_ids) {
         if (state.notes_ids[index] == note_id) {
           index_to_delete = index;
           break;
@@ -72,7 +72,11 @@ export default new Vuex.Store({
       commit("UPDATE_NOTE", note);
     },
     async delete_note({ state, commit }, note_id) {
+      console.log(note_id);
+      console.log(state);
+
       const res = await axios.delete(`${state.server_url}/notes/${note_id}`);
+
       if (res.data != "ok") {
         console.log(res);
         return "err";
