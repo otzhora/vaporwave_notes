@@ -1,11 +1,10 @@
 from uuid import uuid4
 
 from flask import Flask
-from flask import request
+from flask import request, send_from_directory
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 
 notes_dict = {
     "eeea632e-c9ca-449b-93fc-fc084682c002": {
@@ -13,6 +12,21 @@ notes_dict = {
         "body": "expample note body"
     }
 }
+
+
+@app.route("/")
+def main():
+    return app.send_static_file('index.html')
+
+
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('static/js', path)
+
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('static/css', path)
 
 
 @app.route('/notes')
